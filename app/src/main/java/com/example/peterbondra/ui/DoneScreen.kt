@@ -1,6 +1,5 @@
 ﻿package com.example.peterbondra.ui
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -12,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismissBox
@@ -23,9 +20,10 @@ import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.peterbondra.Task
 
@@ -78,9 +76,9 @@ fun DoneScreen(
 
             val target = dismissState.targetValue
             val swipeLabel = when (target) {
-                SwipeToDismissBoxValue.StartToEnd -> "Delete"
-                SwipeToDismissBoxValue.EndToStart -> "Move back to TODO"
-                SwipeToDismissBoxValue.Settled -> "Swipe right: delete | Swipe left: TODO"
+                SwipeToDismissBoxValue.StartToEnd -> "DELETE"
+                SwipeToDismissBoxValue.EndToStart -> "MOVE TO TODO"
+                SwipeToDismissBoxValue.Settled -> "Swipe right: DELETE | Swipe left: TODO"
             }
 
             val swipeAlignment = when (target) {
@@ -89,9 +87,9 @@ fun DoneScreen(
             }
 
             val swipeBackground = when (target) {
-                SwipeToDismissBoxValue.StartToEnd -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.95f)
-                SwipeToDismissBoxValue.EndToStart -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.75f)
-                SwipeToDismissBoxValue.Settled -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)
+                SwipeToDismissBoxValue.StartToEnd -> Color(0xFF7A1E22)
+                SwipeToDismissBoxValue.EndToStart -> Color(0xFF9B5A00)
+                SwipeToDismissBoxValue.Settled -> Color(0xFFDED8CC)
             }
 
             SwipeToDismissBox(
@@ -109,48 +107,34 @@ fun DoneScreen(
                         Text(
                             text = swipeLabel,
                             style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            color = if (target == SwipeToDismissBoxValue.Settled) Color(0xFF3A342B) else Color.White,
                         )
                     }
                 },
             ) {
-                Card(
+                TaskCard(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    ),
-                    border = BorderStroke(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f),
-                    ),
+                        .fillMaxWidth()
+                        .combinedClickable(
+                            onClick = {},
+                            onLongClick = {
+                                clipboardManager.setText(AnnotatedString(task.text))
+                            },
+                        ),
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .combinedClickable(
-                                onClick = {},
-                                onLongClick = {
-                                    clipboardManager.setText(AnnotatedString(task.text))
-                                },
-                            )
-                            .padding(16.dp),
-                    ) {
-                        Text(
-                            text = task.text,
-                            style = MaterialTheme.typography.titleMedium,
-                            modifier = Modifier.align(Alignment.CenterStart),
-                        )
+                    Text(
+                        text = task.text,
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 3,
+                        overflow = TextOverflow.Ellipsis,
+                    )
 
-                        Text(
-                            text = "DONE",
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.align(Alignment.CenterEnd),
-                        )
-                    }
+                    Text(
+                        text = "DONE",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = Color(0xFF6B6B73),
+                        modifier = Modifier.padding(top = 10.dp),
+                    )
                 }
             }
         }
