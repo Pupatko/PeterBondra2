@@ -41,7 +41,7 @@ fun CreateTaskDialog(
                     singleLine = true,
                 )
 
-                Text("How much energy should I spam you with to get this done? 😈 0% = chill once a day, 100% = every 5 minutes NON-STOP!")
+                Text("How much energy should I spam you with to get this done? 0% = chill once a day, 100% = every 5 minutes non-stop.")
 
                 Slider(
                     value = intensity,
