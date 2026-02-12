@@ -116,8 +116,7 @@ fun DoneScreen(
             ) {
                 Card(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .alpha(0.72f),
+                        .fillMaxWidth(),
                     elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant,
