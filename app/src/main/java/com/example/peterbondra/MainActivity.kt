@@ -95,7 +95,7 @@ private fun MainScreen(viewModel: AppViewModel) {
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text("PETERBONDRAJAKCINKA") },
+                    title = { Text("PeterBondraJakCinka") },
                     actions = {
                         IconButton(onClick = { showSettings = true }) {
                             Icon(Icons.Default.Settings, contentDescription = "Settings")

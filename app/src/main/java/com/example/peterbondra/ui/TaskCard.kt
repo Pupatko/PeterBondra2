@@ -21,7 +21,7 @@ fun TaskCard(
 ) {
     Card(
         modifier = modifier.heightIn(min = 102.dp),
-        shape = RoundedCornerShape(18.dp),
+        shape = RoundedCornerShape(28.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
             contentColor = Color(0xFF1B1B1F),
