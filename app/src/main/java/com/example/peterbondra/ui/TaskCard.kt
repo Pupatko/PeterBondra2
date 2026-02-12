@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
 
-val TaskCardShape = RoundedCornerShape(30.dp)
+val TaskCardShape = RoundedCornerShape(24.dp)
 
 @Composable
 fun TaskCard(
