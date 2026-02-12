@@ -114,6 +114,7 @@ fun TodoScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
+                            .padding(1.5.dp)
                             .clip(TaskCardShape)
                             .background(doneSwipeGradient)
                             .padding(horizontal = 20.dp),

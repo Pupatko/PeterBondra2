@@ -102,6 +102,7 @@ fun DoneScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
+                            .padding(1.5.dp)
                             .clip(TaskCardShape)
                             .background(swipeBackground)
                             .padding(horizontal = 20.dp),
