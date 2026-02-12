@@ -69,6 +69,10 @@ class Repository(context: Context) {
         dao.markDone(taskId)
     }
 
+    suspend fun markTaskTodo(taskId: Long) {
+        dao.markTodo(taskId)
+    }
+
     suspend fun deleteTask(taskId: Long) {
         dao.deleteById(taskId)
     }

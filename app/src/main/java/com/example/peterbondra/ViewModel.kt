@@ -83,6 +83,13 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun markTodo(task: Task) {
+        viewModelScope.launch {
+            repository.markTaskTodo(task.id)
+            RandomNotificationWorker.ensureScheduled(getApplication())
+        }
+    }
+
     fun setThemeMode(mode: ThemeMode) {
         viewModelScope.launch {
             repository.setThemeMode(mode)

@@ -160,6 +160,7 @@ private fun MainScreen(viewModel: AppViewModel) {
                 DoneScreen(
                     tasks = doneTasks,
                     onDelete = viewModel::deleteDoneTask,
+                    onRestore = viewModel::markTodo,
                     modifier = Modifier.fillMaxSize(),
                 )
             }
