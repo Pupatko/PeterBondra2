@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInteropFilter
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.peterbondra.Task
@@ -113,6 +114,7 @@ fun TodoScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
+                            .clip(TaskCardShape)
                             .background(doneSwipeGradient)
                             .padding(horizontal = 20.dp),
                         contentAlignment = Alignment.CenterStart,
@@ -160,16 +162,17 @@ fun TodoScreen(
                 ) {
                     Text(
                         text = task.text,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
                         maxLines = 3,
                         overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(vertical = 2.dp),
                     )
 
                     AnimatedVisibility(visible = showIntensity) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 12.dp),
+                                .padding(top = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
                             Text(
@@ -181,8 +184,8 @@ fun TodoScreen(
                             LinearProgressIndicator(
                                 progress = { animatedProgress.value },
                                 modifier = Modifier.fillMaxWidth(),
-                                color = Color(0xFF1E6A41),
-                                trackColor = Color(0xFFE6EEE8),
+                                color = MaterialTheme.colorScheme.primary,
+                                trackColor = MaterialTheme.colorScheme.surfaceVariant,
                             )
                         }
                     }

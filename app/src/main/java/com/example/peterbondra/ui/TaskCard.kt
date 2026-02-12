@@ -10,9 +10,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
+
+val TaskCardShape = RoundedCornerShape(30.dp)
 
 @Composable
 fun TaskCard(
@@ -20,20 +21,20 @@ fun TaskCard(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Card(
-        modifier = modifier.heightIn(min = 102.dp),
-        shape = RoundedCornerShape(28.dp),
+        modifier = modifier.heightIn(min = 76.dp),
+        shape = TaskCardShape,
         colors = CardDefaults.cardColors(
-            containerColor = Color.White,
-            contentColor = Color(0xFF1B1B1F),
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface,
         ),
         border = BorderStroke(
             width = 1.dp,
-            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.28f),
+            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f),
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
             content = content,
         )
     }

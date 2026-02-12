@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,6 +21,7 @@ import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
@@ -89,7 +91,7 @@ fun DoneScreen(
             val swipeBackground = when (target) {
                 SwipeToDismissBoxValue.StartToEnd -> Color(0xFF7A1E22)
                 SwipeToDismissBoxValue.EndToStart -> Color(0xFF9B5A00)
-                SwipeToDismissBoxValue.Settled -> Color(0xFFDED8CC)
+                SwipeToDismissBoxValue.Settled -> MaterialTheme.colorScheme.surfaceVariant
             }
 
             SwipeToDismissBox(
@@ -100,6 +102,7 @@ fun DoneScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
+                            .clip(TaskCardShape)
                             .background(swipeBackground)
                             .padding(horizontal = 20.dp),
                         contentAlignment = swipeAlignment,
@@ -107,7 +110,11 @@ fun DoneScreen(
                         Text(
                             text = swipeLabel,
                             style = MaterialTheme.typography.labelLarge,
-                            color = if (target == SwipeToDismissBoxValue.Settled) Color(0xFF3A342B) else Color.White,
+                            color = if (target == SwipeToDismissBoxValue.Settled) {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            } else {
+                                Color.White
+                            },
                         )
                     }
                 },
@@ -122,19 +129,25 @@ fun DoneScreen(
                             },
                         ),
                 ) {
-                    Text(
-                        text = task.text,
-                        style = MaterialTheme.typography.titleMedium,
-                        maxLines = 3,
-                        overflow = TextOverflow.Ellipsis,
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = task.text,
+                            style = MaterialTheme.typography.titleSmall,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f),
+                        )
 
-                    Text(
-                        text = "DONE",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = Color(0xFF6B6B73),
-                        modifier = Modifier.padding(top = 10.dp),
-                    )
+                        Text(
+                            text = "DONE",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(start = 10.dp),
+                        )
+                    }
                 }
             }
         }
